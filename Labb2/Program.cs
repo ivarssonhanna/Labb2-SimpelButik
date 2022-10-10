@@ -12,11 +12,11 @@ bool run = true;
 while (run)
 {
     Console.Clear();
-    Console.WriteLine("Main Menu");
+    Console.WriteLine("MAIN MENU");
+    Console.WriteLine("-----------------------------");
     Console.WriteLine("1. Sign in");
     Console.WriteLine("2. Register new customer");
-    Console.WriteLine("3. Sign out");
-    Console.WriteLine("4. Close program");
+    Console.WriteLine("3. Close program");
 
     var choice = Console.ReadLine();
     string choice2;
@@ -28,6 +28,8 @@ while (run)
             {
                 do
                 {
+                    Console.Clear();
+                    Console.WriteLine("MAKE A CHOICE");
                     Console.WriteLine("-----------------------------");
                     Console.WriteLine("a. Add items to cart");
                     Console.WriteLine("b. View cart");
@@ -46,6 +48,7 @@ while (run)
                             Pay();
                             break;
                         case "d":
+                            SignOut();
                             break;
                         default:
                             Console.WriteLine("Try again");
@@ -58,9 +61,6 @@ while (run)
             Register();
             break;
         case "3":
-            SignOut();
-            break;
-        case "4":
             run = false;
             break;
         default:
@@ -69,7 +69,6 @@ while (run)
             break;
     }
 }
-
 
 void SignIn()
 {
@@ -124,6 +123,8 @@ void SignOut()
     Console.WriteLine("SIGN OUT");
     Console.WriteLine("-----------------------------");
     Console.WriteLine($"Welcome back {_currentCustomer.Name}!");
+    Console.WriteLine("Press enter to continue");
+    Console.ReadKey();
     _currentCustomer = null;
 }
 
@@ -137,22 +138,20 @@ void AddItemToCart()
         Console.WriteLine($"{item} kr");
     }
     Console.WriteLine("-----------------------------");
-
     Console.WriteLine("Pick an item: ");
     var wantedItem = int.Parse(Console.ReadLine());
     var wrongItem = true;
     while (wrongItem)
     {
-
-        if (data.Fruits.Any(p => p.Id != wantedItem))
+        if (data.Fruits.Any(p => p.Id == wantedItem))
+        {
+            wrongItem = false;
+        }
+        else
         {
             Console.WriteLine("Wrong ID, try again.");
             Console.WriteLine("Pick an item: ");
             wantedItem = int.Parse(Console.ReadLine());
-        }
-        else
-        {
-            wrongItem = false;
         }
     }
 
@@ -171,6 +170,8 @@ void AddItemToCart()
             Console.WriteLine($"{numberOfItem} pcs of {item.Name} is added to your cart");
         }
     }
+    Console.WriteLine("Press enter to continue");
+    Console.ReadKey();
 }
 
 void ViewCart()
@@ -178,7 +179,6 @@ void ViewCart()
     Console.Clear();
     Console.WriteLine("VIEW CART");
     Console.WriteLine("-----------------------------");
-
 
     var uniqueItem = _currentCustomer.Cart.Select(p => p).Distinct().ToList();
 
@@ -190,8 +190,12 @@ void ViewCart()
     }
 
     var numberOfItems = _currentCustomer.Cart.Count;
-    Console.WriteLine($"\nTotal items: {numberOfItems} pcs");
+    Console.WriteLine("-----------------------------");
+    Console.WriteLine($"Total items: {numberOfItems} pcs");
     _currentCustomer.TotalPrice();
+    Console.WriteLine("-----------------------------");
+    Console.WriteLine("Press enter to continue");
+    Console.ReadKey();
 }
 
 void Pay()
@@ -200,16 +204,25 @@ void Pay()
     Console.WriteLine("PAY");
     Console.WriteLine("-----------------------------");
     _currentCustomer.TotalPrice();
-
-    Random random = new Random();
-    int randomPay = random.Next(1, 3);
-    switch (randomPay)
+    Console.WriteLine("-----------------------------\n");
+    if (_currentCustomer.Cart == null)
     {
-        case 1:
-            Console.WriteLine($"{_currentCustomer.Name} have money and can pay!");
-            break;
-        case 2:
-            Console.WriteLine($"{_currentCustomer.Name} don't have enough money today!");
-            break;
+        Console.WriteLine("Your cart is empty.");
     }
+    else
+    {
+        Random random = new Random();
+        int randomPay = random.Next(1, 3);
+        switch (randomPay)
+        {
+            case 1:
+                Console.WriteLine($"{_currentCustomer.Name} have money and can pay!");
+                break;
+            case 2:
+                Console.WriteLine($"{_currentCustomer.Name} don't have enough money today!");
+                break;
+        }
+    }
+    Console.WriteLine("Press enter to continue");
+    Console.ReadKey();
 }

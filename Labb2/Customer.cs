@@ -8,13 +8,16 @@ public class Customer
     private string Password { get; set; }
     private List<Product> _cart;
     public List<Product> Cart { get { return _cart; } }
+    public double Discount { get; set; }
 
     public Customer(string name, string password)
     {
         Name = name;
         Password = password;
         _cart = new List<Product>();
+        Discount = 1;
     }
+    public Customer() { }
 
     public override string ToString()
     {
@@ -27,17 +30,6 @@ public class Customer
         customerCart += "\n";
         return customerCart;
     }
-
-    //public bool VerifyPassword(string inputPassword)
-    //{
-    //    if (Password == inputPassword)
-    //    {
-    //        Console.WriteLine($"You are logged in as {Name}.");
-    //        return true;
-    //    }
-    //    Console.WriteLine("Wrong password.");
-    //    return false;
-    //}
     public string VerifyPassword(string inputPassword)
     {
         bool wrongPassword = true;
@@ -57,7 +49,6 @@ public class Customer
         }
         return $"";
     }
-
     public void TotalPrice()
     {
         double totalPrice = 0;
@@ -65,13 +56,15 @@ public class Customer
         {
             totalPrice += item.Price;
         }
-        Console.WriteLine($"Total price: {totalPrice} kr");
 
+        if (totalPrice > 500)
+        {
+            totalPrice.Discount
+        }
+        Console.WriteLine($"Total price: {totalPrice} SEK");
+        
     }
 
-    public virtual void PremiumCustomer(string gold)
-    {
-        Console.WriteLine("Golden customer");
-    }
+
 }
 
