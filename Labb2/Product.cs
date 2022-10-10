@@ -10,6 +10,6 @@ public record Product
 
     public override string ToString()
     {
-        return $"[{Id}] {Name} {Price} kr";
+        return $"[{Id}] {Name} {Price} SEK";
     }
 }

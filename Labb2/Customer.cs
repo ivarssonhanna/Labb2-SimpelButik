@@ -57,12 +57,9 @@ public class Customer
             totalPrice += item.Price;
         }
 
-        if (totalPrice > 500)
-        {
-            totalPrice.Discount
-        }
+        totalPrice *= Discount;
         Console.WriteLine($"Total price: {totalPrice} SEK");
-        
+
     }
 
 

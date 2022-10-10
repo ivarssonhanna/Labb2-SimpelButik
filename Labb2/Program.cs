@@ -135,7 +135,7 @@ void AddItemToCart()
     Console.WriteLine("-----------------------------");
     foreach (var item in data.Fruits)
     {
-        Console.WriteLine($"{item} kr");
+        Console.WriteLine($"{item}");
     }
     Console.WriteLine("-----------------------------");
     Console.WriteLine("Pick an item: ");
@@ -186,7 +186,7 @@ void ViewCart()
     {
         var number = _currentCustomer.Cart.Count(p => p == item);
         var uniqueItemsPrices = number * item.Price;
-        Console.WriteLine($"{number} pcs - {item} - total: {uniqueItemsPrices} kr");
+        Console.WriteLine($"{number} pcs - {item} - total: {uniqueItemsPrices} SEK");
     }
 
     var numberOfItems = _currentCustomer.Cart.Count;
